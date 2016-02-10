@@ -1,0 +1,50 @@
+{
+  "name": "micro-node-client",
+  "version": "0.0.1",
+  "description": "The client for teh micro services",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "babel -d ./build/ ./lib/",
+    "prepublish": "npm run build",
+    "pretest": "npm run build",
+    "test": "DEBUG=amqp mocha",
+    "lint": "eslint lib/*.js",
+    "micro": "micro ./test/services/fibonacci/index.js 127.0.0.1"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run lint",
+      "post-merge": "npm install",
+      "post-rewrite": "npm install"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micro-node/client.git"
+  },
+  "keywords": [
+    "client",
+    "micro-node"
+  ],
+  "author": "Haithem Bel Haj <haythem.belhaj@gmail.com> (http://haithembelhaj.github.io)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/micro-node/client/issues"
+  },
+  "homepage": "https://github.com/micro-node/client#readme",
+  "dependencies": {
+    "deasync": "^0.1.4",
+    "micro-node-amqp": "^1.0.6",
+    "node-uuid": "^1.4.7"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.4.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-register": "^6.0.0",
+    "chai": "^3.3.0",
+    "eslint": "^1.10.3",
+    "ghooks": "^1.0.1",
+    "micro-node-launcher": "^0.1.2",
+    "mocha": "^2.3.4"
+  }
+}
