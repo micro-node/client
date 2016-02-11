@@ -52,7 +52,7 @@ describe('Client Tests', function(){
       "type": "multi-method"
     };
 
-    var fibonacciClient = client('127.0.0.1');
+    var fibonacciClient = client('127.0.0.1', 'fibonacci');
 
     assert(fibonacciClient.$definition, definition);
   })
@@ -60,7 +60,7 @@ describe('Client Tests', function(){
   it('should proxy the methods', function(done){
 
 
-    var fibonacciClient = client('127.0.0.1');
+    var fibonacciClient = client('127.0.0.1', 'fibonacci');
 
 
     fibonacciClient.fast(40, function(err, res){
