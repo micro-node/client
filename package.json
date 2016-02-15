@@ -1,6 +1,6 @@
 {
   "name": "micro-node-client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The client for teh micro services",
   "main": "build/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "pretest": "npm run build",
     "test": "DEBUG=amqp mocha",
     "lint": "eslint lib/*.js",
-    "micro": "micro ./test/services/fibonacci/index.js fibonacci 127.0.0.1"
+    "micro": "DEBUG=amqp micro ./test/services/fibonacci/index.js fib"
   },
   "config": {
     "ghooks": {
@@ -34,7 +34,8 @@
   "homepage": "https://github.com/micro-node/client#readme",
   "dependencies": {
     "deasync": "^0.1.4",
-    "micro-node-amqp": "^1.0.6",
+    "micro-node-amqp": "^1.1.6",
+    "micro-node-json-rpc": "^1.1.0",
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {
@@ -44,7 +45,7 @@
     "chai": "^3.3.0",
     "eslint": "^1.10.3",
     "ghooks": "^1.0.1",
-    "micro-node-launcher": "^0.1.2",
+    "micro-node-launcher": "^0.2.2",
     "mocha": "^2.3.4"
   }
 }

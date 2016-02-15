@@ -1,6 +1,7 @@
 var exec = require('child_process').exec;
 var assert = require('assert');
 var client = require('../build/index');
+var rpc = require('micro-node-json-rpc');
 
 const children = [];
 
@@ -26,41 +27,17 @@ describe('Client Tests', function(){
 
   it('should return defintion', function(){
 
-    var definition = {
-      "methods": {
-        "$definition": {
-          "name": "$definition",
-          "params": [
-            "cb"
-          ]
-        },
-        "fast": {
-          "name": "fast",
-          "params": [
-            "n",
-            "callback"
-          ]
-        },
-        "slow": {
-          "name": "slow",
-          "params": [
-            "n",
-            "callback"
-          ]
-        }
-      },
-      "type": "multi-method"
-    };
+    var fibonacciClient = client('127.0.0.1', 'fib');
 
-    var fibonacciClient = client('127.0.0.1', 'fibonacci');
-
-    assert(fibonacciClient.$definition, definition);
+    assert(fibonacciClient.$definition.fast.type, rpc.FUNCTIONTYPE);
+    assert(fibonacciClient.$definition.deep.slow.type, rpc.FUNCTIONTYPE);
+    assert(fibonacciClient.$definition.deep.pi.type, rpc.VALUETYPE);
   })
 
   it('should proxy the methods', function(done){
 
 
-    var fibonacciClient = client('127.0.0.1', 'fibonacci');
+    var fibonacciClient = client('127.0.0.1', 'fib');
 
 
     fibonacciClient.fast(40, function(err, res){
@@ -70,17 +47,27 @@ describe('Client Tests', function(){
     })
   })
 
-  it('should proxy the methods', function(done){
+  it('should proxy deep methods', function(done){
 
 
-    var fibonacciClient = client('127.0.0.1');
+    var fibonacciClient = client('127.0.0.1', 'fib');
 
 
-    fibonacciClient.slow(40, function(err, res){
+    fibonacciClient.deep.slow(40, function(err, res){
 
       assert(res, 102334155);
       done();
     })
+  })
+
+
+  it('should deep constant values', function(done){
+
+
+    var fibonacciClient = client('127.0.0.1', 'fib');
+
+    assert(fibonacciClient.deep.pi, Math.PI);
+    done();
   })
 
 })

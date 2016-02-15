@@ -2,7 +2,10 @@
 module.exports = {
 
   fast: require('./fast'),
-  slow: require('./slow')
+  deep: {
+    slow: require('./slow'),
+    pi: Math.PI
+  }
 };
 
 
