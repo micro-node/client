@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/micro-node/client.svg)](http://travis-ci.org/micro-node/client)
+[![Dependency Status](https://david-dm.org/micro-node/client.svg)](https://david-dm.org/micro-node/client)
+[![devDependency Status](https://david-dm.org/micro-node/client/dev-status.svg)](https://david-dm.org/micro-node/client#info=devDependencies)
 # AMQP RPC Client
 
 This is an implementation of an AMQP RPC client using JSON-RPC 2.0.
