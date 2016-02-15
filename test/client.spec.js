@@ -9,7 +9,7 @@ const children = [];
 function server(cb){
 
   children.push(exec('npm run micro'));
-  cb();
+  setTimeout(cb, 3000);
 }
 
 process.on('exit', function(){
