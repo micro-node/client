@@ -2,10 +2,16 @@
 # AMQP RPC Client
 
 This is an implementation of an AMQP RPC client using JSON-RPC 2.0.
-This client connects to AMQP Servers launched with [micro-node-launcher](https://github.com/micro-node/launcher).
-The queue parameter is important and must be unique.
+This client connects to AMQP Servers preferably launched with [micro-node-launcher](https://github.com/micro-node/launcher).
 
-The Client will imitate the server service as much as possible. That means if the server was created with an module of this shape
+## Usage
+
+```
+var client = require('micro-node-client')('127.0.0.1', 'rpc_queue')
+```
+
+With this code snippet the client will connect to a server listening on '127.0.0.1' using the queue named `rpc_queue`.
+The client will imitate the server service as much as possible. That means if the server was created with an module of this shape
 ```
 
 module.exports = {
@@ -23,24 +29,26 @@ module.exports = {
 
 ```
 
-the client will have exactly the same shape with the only difference that the method are now remotely executed wich is totally invisible to the user.
+the client will have exactly the same shape with the only difference that the method are now remotely executed wich is totally invisible to the user. 
+
+```
+client.deep.bar(function(err, result){
+
+    console.log(result);
+}};
+```
+
+In addition to that static values are directly accessible without the need of a request.
+
+```
+assert(client.value, 'value'); // this is true
+```
+
+## How it works
+
+Upon initialisation the client will trigger a single sync request to the server for the internal method `rpc.definition` to get the shape and definition on the service. This information is then used to create this intelligent client.
 
 ## Requirements
 
 - NodeJS
 - RabbitMQ
-
-## Usage
-
-```
-
-var client = require('micro-node-client')('127.0.0.1', 'ampq_queue')
-
-// the amqp server exports the doStuff method 
-client.doStuff(function(err, result){
-
-    console.log(result);
-}};
-
-```
-
