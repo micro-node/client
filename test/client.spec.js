@@ -22,6 +22,8 @@ process.on('exit', function(){
 
 
 describe('Client Tests', function(){
+  
+  this.timeout(10000);
 
   before(server);
 
