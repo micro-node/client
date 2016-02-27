@@ -55,3 +55,7 @@ Upon initialisation the client will trigger a single sync request to the server 
 
 - NodeJS
 - RabbitMQ
+
+## License
+
+MIT © [Haithem Bel Haj](https://github.com/haithembelhaj)
