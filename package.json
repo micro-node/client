@@ -1,6 +1,6 @@
 {
   "name": "micro-node-client",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "The client for teh micro services",
   "main": "build/index.js",
   "scripts": {
@@ -36,7 +36,7 @@
   "homepage": "https://github.com/micro-node/client#readme",
   "dependencies": {
     "deasync": "^0.1.4",
-    "micro-node-amqp": "^1.1.6",
+    "micro-node-amqp": "^1.1.7",
     "micro-node-json-rpc": "^1.1.0",
     "node-uuid": "^1.4.7"
   },

@@ -12,64 +12,85 @@ function server(cb){
   setTimeout(cb, 3000);
 }
 
-process.on('exit', function(){
+function killAll(cb){
 
   children.forEach(function(child){
 
     child.kill();
   })
-})
+
+  cb && cb();
+}
+
+process.on('exit', killAll);
 
 
 describe('Client Tests', function(){
   
   this.timeout(10000);
 
-  before(server);
+  describe('timeout', function(){
 
-  it('should return defintion', function(){
+    it('should throw error for timeout', function(){
 
-    var fibonacciClient = client('127.0.0.1', 'fib');
+      try{
 
-    assert(fibonacciClient.$definition.fast.type, rpc.FUNCTIONTYPE);
-    assert(fibonacciClient.$definition.deep.slow.type, rpc.FUNCTIONTYPE);
-    assert(fibonacciClient.$definition.deep.pi.type, rpc.VALUETYPE);
-  })
+        client('127.0.0.1', 'fib');
 
-  it('should proxy the methods', function(done){
+      }catch(err){
 
-
-    var fibonacciClient = client('127.0.0.1', 'fib');
-
-
-    fibonacciClient.fast(40, function(err, res){
-
-      assert(res, 102334155);
-      done();
+        assert(err.name, 'Timeout');
+      }
     })
   })
 
-  it('should proxy deep methods', function(done){
+  describe('integration test', function(){
+
+    before(server);
+
+    it('should return defintion', function(){
+
+      var fibonacciClient = client('127.0.0.1', 'fib');
+
+      assert(fibonacciClient.$definition.fast.type, rpc.FUNCTIONTYPE);
+      assert(fibonacciClient.$definition.deep.slow.type, rpc.FUNCTIONTYPE);
+      assert(fibonacciClient.$definition.deep.pi.type, rpc.VALUETYPE);
+    })
+
+    it('should proxy the methods', function(done){
 
 
-    var fibonacciClient = client('127.0.0.1', 'fib');
+      var fibonacciClient = client('127.0.0.1', 'fib');
 
 
-    fibonacciClient.deep.slow(40, function(err, res){
+      fibonacciClient.fast(40, function(err, res){
 
-      assert(res, 102334155);
+        assert(res, 102334155);
+        done();
+      })
+    })
+
+    it('should proxy deep methods', function(done){
+
+
+      var fibonacciClient = client('127.0.0.1', 'fib');
+
+
+      fibonacciClient.deep.slow(40, function(err, res){
+
+        assert(res, 102334155);
+        done();
+      })
+    })
+
+
+    it('should deep constant values', function(done){
+
+
+      var fibonacciClient = client('127.0.0.1', 'fib');
+
+      assert(fibonacciClient.deep.pi, Math.PI);
       done();
     })
   })
-
-
-  it('should deep constant values', function(done){
-
-
-    var fibonacciClient = client('127.0.0.1', 'fib');
-
-    assert(fibonacciClient.deep.pi, Math.PI);
-    done();
-  })
-
 })
