@@ -12,14 +12,9 @@ function server(cb){
   setTimeout(cb, 3000);
 }
 
-function killAll(cb){
+function killAll(){
 
-  children.forEach(function(child){
-
-    child.kill();
-  })
-
-  cb && cb();
+  children.forEach((child) => child.kill())
 }
 
 process.on('exit', killAll);

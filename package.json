@@ -20,6 +20,13 @@
       "post-rewrite": "npm install"
     }
   },
+  "micro-node": {
+
+    "services": {
+
+      "fib": "127.0.0.1"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/micro-node/client.git"
@@ -38,7 +45,8 @@
     "deasync": "^0.1.4",
     "micro-node-amqp": "^1.1.7",
     "micro-node-json-rpc": "^1.1.0",
-    "node-uuid": "^1.4.7"
+    "node-uuid": "^1.4.7",
+    "pkg-up": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.4.0",
