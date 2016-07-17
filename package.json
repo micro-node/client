@@ -1,6 +1,6 @@
 {
   "name": "micro-node-client",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "The client for teh micro services",
   "main": "build/index.js",
   "scripts": {
@@ -21,9 +21,7 @@
     }
   },
   "micro-node": {
-
     "services": {
-
       "fib": "127.0.0.1"
     }
   },
